@@ -1,154 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>NBA Players Visualization</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Optional: Link your custom CSS styles -->
-  <style>
-    /* Add any necessary CSS styles for your visualization */
-  </style>
+    <meta charset="UTF-8">
+    <title>NBA Players Visualization</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional: Link your custom CSS styles -->
+    <style>
+        /* Add any necessary CSS styles for your visualization */
+    </style>
 </head>
+
 <body>
-  <!-- Create a container for your visualization -->
-  <div id="visualization-container"></div>
+    <!-- Create a container for your visualization -->
+    <div id="visualization-container"></div>
 
-  <!-- Include D3 and other necessary libraries -->
-  <script src="https://d3js.org/d3.v6.min.js"></script> <!-- Include D3 library -->
-  <script src="https://d3-annotation.susielu.com/d3-annotation.v3.min.js"></script> <!-- Include d3-annotation library -->
-  <script src="https://unpkg.com/topojson-client@3"></script> <!-- Include topoJSON Client library -->
-  
-  <script>
-    // Load the bar chart dataset
-    d3.csv("average_salary_by_position.csv").then(function(barChartData) {
-      // Preprocess the bar chart data
-      barChartData.forEach(function(d) {
-        d.average_salary = +d.average_salary;
-        d.record_count = +d.record_count;
-      });
+    <!-- Include D3 and other necessary libraries -->
+    <script src="https://d3js.org/d3.v6.min.js"></script> <!-- Include D3 library -->
+    <script src="https://d3-annotation.susielu.com/d3-annotation.v3.min.js"></script> <!-- Include d3-annotation library -->
+    <script src="https://unpkg.com/topojson-client@3"></script> <!-- Include topoJSON Client library -->
 
-      // Load the scatter plot dataset
-      d3.csv("salary_rating_table.csv").then(function(scatterPlotData) {
-        // Preprocess the scatter plot data
-        scatterPlotData.forEach(function(d) {
-          d.salary = +d.salary;
-          d.rating = +d.rating;
+    <script>
+        // Load the bar chart dataset
+        d3.csv("average_salary_by_position.csv").then(function (barChartData) {
+            // Preprocess the bar chart data
+            barChartData.forEach(function (d) {
+                d.average_salary = +d.average_salary;
+                d.record_count = +d.record_count;
+            });
+
+            // Load the scatter plot dataset
+            d3.csv("salary_rating_table.csv").then(function (scatterPlotData) {
+                // Preprocess the scatter plot data
+                scatterPlotData.forEach(function (d) {
+                    d.salary = +d.salary;
+                    d.rating = +d.rating;
+                });
+
+                // Define the parameters (example code)
+                var selectedCountry = "USA";
+                var selectedPosition = "G";
+
+                // Filter the scatter plot data based on the selected country and position (example code)
+                var filteredBarChartData = barChartData.filter(function (d) {
+                    return d.country === selectedCountry;
+                });
+
+                // Filter the scatter plot data based on the selected country and position (example code)
+                var filteredScatterPlotData = scatterPlotData.filter(function (d) {
+                    return d.country === selectedCountry && d.position === selectedPosition;
+                });
+
+                // Build the first scene - Overview bar chart
+                function buildOverviewBarChart(data) {
+                    // Define the dimensions and margins for the chart (example code)
+                    var width = 500;
+                    var height = 300;
+                    var margin = { top: 20, right: 20, bottom: 50, left: 70 };
+
+                    // Create the SVG element (example code)
+                    var svg = d3.select("#visualization-container")
+                        .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                    // Define x and y scales
+                    var x = d3.scaleBand()
+                        .domain(['G', 'G-F', 'F', 'F-C', 'C'])
+                        .range([0, width])
+                        .padding(0.1);
+
+                    var y = d3.scaleLinear()
+                        .domain([0, 18000000])
+                        .range([height, 0]);
+
+                    // Define the y-axis generator with customized tick format
+                    var yAxis = d3.axisLeft(y)
+                        .tickFormat(d3.format(".2s")); // Custom format: e.g., "1M" instead of "1000000"
+
+                    // Implement the bar chart using D3 (example code)
+                    svg.selectAll("rect")
+                        .data(data)
+                        .enter()
+                        .append("rect")
+                        .attr("x", function (d) { return x(d.position); })
+                        .attr("y", function (d) { return y(d.average_salary); })
+                        .attr("width", x.bandwidth())
+                        .attr("height", function (d) { return height - y(d.average_salary); })
+                        .attr("fill", "steelblue");
+
+                    // Add axes
+                    svg.append("g")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x));
+
+                    svg.append("g")
+                        .call(yAxis);
+
+                    // Add axis titles
+                    svg.append("text")
+                        .attr("x", width / 2)
+                        .attr("y", height + margin.bottom - 10)
+                        .attr("text-anchor", "middle")
+                        .text("Position");
+
+                    svg.append("text")
+                        .attr("x", -margin.left)
+                        .attr("y", height / 2)
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "rotate(-90)")
+                        .text("Average Salary");
+
+                    // Add event listeners or triggers to update the selected country and position (example code)
+                    // ...
+
+                    // Add tooltips using d3-annotation (example code)
+                    // ...
+                }
+
+                // Build the second scene - Scatter plot
+                function buildScatterPlot(data) {
+                    // Define the dimensions and margins for the plot (example code)
+                    var width = 500;
+                    var height = 300;
+                    var margin = { top: 20, right: 20, bottom: 50, left: 50 };
+
+                    // Create the SVG element (example code)
+                    var svg = d3.select("#visualization-container")
+                        .append("svg")
+                        .attr("width", width + margin.left + margin.right)
+                        .attr("height", height + margin.top + margin.bottom)
+                        .append("g")
+                        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+                    // Implement the scatter plot using D3 (example code)
+                    // ...
+
+                    // Add event listeners or triggers to update the selected country and position (example code)
+                    // ...
+                }
+
+                // Call the functions to build the initial scenes
+                buildOverviewBarChart(filteredBarChartData);
+                // buildOverviewBarChart(barChartData);
+                // buildScatterPlot(filteredScatterPlotData);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }).catch(function (error) {
+            console.log(error);
         });
-
-        // Define the parameters (example code)
-        var selectedCountry = "USA";
-        var selectedPosition = "G";
-
-        // Filter the scatter plot data based on the selected country and position (example code)
-        var filteredBarChartData = barChartData.filter(function(d) {
-          return d.country === selectedCountry;
-        });
-
-        // Filter the scatter plot data based on the selected country and position (example code)
-        var filteredScatterPlotData = scatterPlotData.filter(function(d) {
-          return d.country === selectedCountry && d.position === selectedPosition;
-        });
-
-        // Build the first scene - Overview bar chart
-        function buildOverviewBarChart(data) {
-          // Define the dimensions and margins for the chart (example code)
-          var width = 500;
-          var height = 300;
-          var margin = { top: 20, right: 20, bottom: 50, left: 70 };
-
-          // Create the SVG element (example code)
-          var svg = d3.select("#visualization-container")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-          // Define x and y scales
-          var x = d3.scaleBand()
-            .domain(['G', 'G-F', 'F', 'F-C', 'C'])
-            .range([0, width])
-            .padding(0.1);
-
-          var y = d3.scaleLinear()
-            .domain([0, 18000000])
-            .range([height, 0]);
-
-					// Define the y-axis generator with customized tick format
-					var yAxis = d3.axisLeft(y)
-						.tickFormat(d3.format(".2s")); // Custom format: e.g., "1M" instead of "1000000"
-
-          // Implement the bar chart using D3 (example code)
-          svg.selectAll("rect")
-            .data(data)
-            .enter()
-            .append("rect")
-	          .attr("x", function(d) {return x(d.position);})
-	          .attr("y", function(d) {return y(d.average_salary);})
-	          .attr("width", x.bandwidth())
-	          .attr("height", function(d) {return height-y(d.average_salary);})
-            .attr("fill", "steelblue");
-          
-          // Add axes
-          svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-          svg.append("g")
-  					.call(yAxis);
-					
-					// Add axis titles
-          svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", height + margin.bottom - 10)
-            .attr("text-anchor", "middle")
-            .text("Position");
-
-          svg.append("text")
-            .attr("x", -margin.left)
-            .attr("y", height / 2)
-            .attr("text-anchor", "middle")
-            .attr("transform", "rotate(-90)")
-            .text("Average Salary");
-
-          // Add event listeners or triggers to update the selected country and position (example code)
-          // ...
-
-          // Add tooltips using d3-annotation (example code)
-          // ...
-        }
-
-        // Build the second scene - Scatter plot
-        function buildScatterPlot(data) {
-          // Define the dimensions and margins for the plot (example code)
-          var width = 500;
-          var height = 300;
-          var margin = { top: 20, right: 20, bottom: 50, left: 50 };
-
-          // Create the SVG element (example code)
-          var svg = d3.select("#visualization-container")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-          // Implement the scatter plot using D3 (example code)
-          // ...
-
-          // Add event listeners or triggers to update the selected country and position (example code)
-          // ...
-        }
-
-        // Call the functions to build the initial scenes
-        buildOverviewBarChart(filteredBarChartData);
-        // buildOverviewBarChart(barChartData);
-        // buildScatterPlot(filteredScatterPlotData);
-      }).catch(function(error) {
-        console.log(error);
-      });
-    }).catch(function(error) {
-      console.log(error);
-    });
-  </script>
+    </script>
 </body>
 </html>
