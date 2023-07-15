@@ -7,6 +7,18 @@
     <style>
         /* Add any necessary CSS styles for your visualization */
 
+        /* Position the container */
+        #container {
+            position: relative;
+        }
+        
+        /* Position the dropdown container */
+        #dropdown-container {
+            position: absolute;
+            top: 10px; /* Adjust the top positioning as needed */
+            left: 10px; /* Adjust the left positioning as needed */
+        }
+        
         /* Center the visualization container */
         #visualization-container {
             display: flex;
@@ -18,15 +30,17 @@
 </head>
 
 <body>
-    <!-- Create a container for your visualization -->
-    <div>
-      <label for="country-select">Select Country:</label>
-      <select id="country-select">
-        <option value="USA">USA</option>
-        <option value="Other">Other</option>
-      </select>
+    <!-- Create a container for your visualization and dropdown menu -->
+    <div id="container">
+        <div id="dropdown-container">
+            <label for="country-select">Select Country:</label>
+            <select id="country-select">
+                <option value="USA">USA</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div id="visualization-container"></div>
     </div>
-    <div id="visualization-container"></div>
 
     <!-- Include D3 and other necessary libraries -->
     <script src="https://d3js.org/d3.v6.min.js"></script> <!-- Include D3 library -->
@@ -55,14 +69,14 @@
                 var selectedPosition = "G";
 
                 // Handle the dropdown menu selection
-                d3.select("#country-select").on("change", function () {
+                d3.select("#container").select("#dropdown-container").select("#country-select").on("change", function () {
                     selectedCountry = this.value;
                     updateVisualization();
                 });
 
                 // Function to clear the chart
                 function clearChart() {
-                  d3.select("#visualization-container").selectAll("svg").remove();
+                  d3.select("#container").select("#visualization-container").selectAll("svg").remove();
                 }
 
                 // Function to update the visualization based on the selected country
@@ -94,7 +108,7 @@
                     var margin = { top: 20, right: 20, bottom: 50, left: 65};
 
                     // Create the SVG element
-                    var svg = d3.select("#visualization-container")
+                    var svg = d3.select("#container").select("#visualization-container")
                         .append("svg")
                         .attr("width", width + margin.left + margin.right)
                         .attr("height", height + margin.top + margin.bottom)
