@@ -87,7 +87,7 @@
                         .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
 
                     // Implement the bar chart using D3
-                    svg.selectAll("rect")
+                    var bars = svg.selectAll("rect")
                         .data(data)
                         .enter()
                         .append("rect")
