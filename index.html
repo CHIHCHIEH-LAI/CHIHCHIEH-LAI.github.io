@@ -125,7 +125,7 @@
                     // Add tooltips using d3-annotation
                     bars.append("title")
                         .text(function (d) { 
-                            var scaledSalary = Math.round(d.average_salary / 1000000, 3).toLocaleString();
+                            var scaledSalary = (d.average_salary / 1000000).toFixed(3);
                             return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + scaledSalary + "M"; 
                         });
                 }
