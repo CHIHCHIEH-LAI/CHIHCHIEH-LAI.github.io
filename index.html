@@ -25,6 +25,7 @@
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
+        <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
             <select id="country-select">
@@ -32,7 +33,6 @@
                 <option value="Other">Other</option>
             </select>
         </div>
-        <div id="visualization-container"></div>
     </div>
 
     <!-- Include D3 and other necessary libraries -->
@@ -160,6 +160,8 @@
                         .attr("x", width / 2)
                         .attr("y", -margin.top+10)
                         .attr("text-anchor", "middle")
+                        .style("font-size", "18px")
+                        .style("font-weight", "bold")
                         .text("NBA Players Average Salary by Position");
 
                     // Add tooltips using d3-annotation
