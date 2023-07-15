@@ -203,6 +203,9 @@
                         .domain([60, 100])
                         .range([height, 0]);
 
+                    var xAxis = d3.axisBottom(x)
+                        .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
+
                     // Create circles for the scatter plot
                     svg.selectAll("circle")
                         .data(data)
@@ -216,7 +219,7 @@
                     // Add axes
                     svg.append("g")
                         .attr("transform", "translate(0," + height + ")")
-                        .call(d3.axisBottom(x));
+                        .call(xAxis);
                 
                     svg.append("g")
                         .call(d3.axisLeft(y));
