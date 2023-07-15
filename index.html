@@ -245,11 +245,11 @@
                         .text("NBA Players Salary vs Rating");
 
                     // Add tooltips using d3-annotation
-                    svg.selectAll("circle")
-                        .append("title")
-                        .text(function(d) {
-                            return "Salary: $" + d.salary.toLocaleString() + "\nRating: " + d.rating;
-                        });
+                    // svg.selectAll("circle")
+                    //     .append("title")
+                    //     .text(function(d) {
+                    //         return "Salary: $" + d.salary.toLocaleString() + "\nRating: " + d.rating;
+                    //     });
                 }
                 
                 // Call the function to initially build the visualization
