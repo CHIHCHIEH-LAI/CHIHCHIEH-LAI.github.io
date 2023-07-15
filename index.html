@@ -59,7 +59,6 @@
 
                 // Define the parameters
                 var selectedCountry = "USA";
-                var selectedPosition = "G";
 
                 // Handle the dropdown menu selection
                 d3.select("#container").select("#dropdown-container").select("#country-select").on("change", function () {
@@ -130,6 +129,9 @@
                         .on("click", function (d) {
                             // Clear the existing chart
                             clearChart();
+
+                            // Define the parameters
+                            var selectedPosition = "G";
 
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (d) {
