@@ -125,8 +125,8 @@
                     // Add tooltips using d3-annotation
                     bars.append("title")
                         .text(function (d) { 
-                            var formattedSalary = Math.round(d.average_salary).toLocaleString();
-                            return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + formattedSalary; 
+                            var scaledSalary = Math.round(d.average_salary / 1000).toLocaleString();
+                            return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + scaledSalary + "K"; 
                         });
                 }
 
