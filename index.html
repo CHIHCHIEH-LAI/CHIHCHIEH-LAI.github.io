@@ -47,15 +47,29 @@
                 var selectedCountry = "USA";
                 var selectedPosition = "G";
 
-                // Filter the scatter plot data based on the selected country and position
-                var filteredBarChartData = barChartData.filter(function (d) {
-                    return d.country === selectedCountry;
+                // Handle the dropdown menu selection
+                d3.select("#country-select").on("change", function () {
+                    selectedCountry = this.value;
+                    updateVisualization();
                 });
 
-                // Filter the scatter plot data based on the selected country and position
-                var filteredScatterPlotData = scatterPlotData.filter(function (d) {
-                    return d.country === selectedCountry && d.position === selectedPosition;
-                });
+                // Function to update the visualization based on the selected country
+                function updateVisualization() {
+                    // Filter the scatter plot data based on the selected country and position
+                    var filteredBarChartData = barChartData.filter(function (d) {
+                        return d.country === selectedCountry;
+                    });
+
+                    // Filter the scatter plot data based on the selected country and position
+                    var filteredScatterPlotData = scatterPlotData.filter(function (d) {
+                        return d.country === selectedCountry && d.position === selectedPosition;
+                    });
+                    
+                    // Call the functions to build/update the initial scenes
+                    buildOverviewBarChart(filteredBarChartData);
+                    // buildOverviewBarChart(barChartData);
+                    // buildScatterPlot(filteredScatterPlotData);
+                }
 
                 // Build the first scene - Overview bar chart
                 function buildOverviewBarChart(data) {
@@ -119,7 +133,7 @@
                         .attr("transform", "rotate(-90, " + (-margin.left+20) + ", " + height / 2 + ")")
                         .text("Average Salary");
 
-                    // Add event listeners or triggers to update the selected country and position
+                    // Add event listeners or triggers to update the selected country
                     // ...
 
                     // Add tooltips using d3-annotation
@@ -151,11 +165,10 @@
                     // Add event listeners or triggers to update the selected country and position
                     // ...
                 }
-
-                // Call the functions to build the initial scenes
-                buildOverviewBarChart(filteredBarChartData);
-                // buildOverviewBarChart(barChartData);
-                // buildScatterPlot(filteredScatterPlotData);
+                
+                // Call the function to initially build the visualization
+                updateVisualization();
+                
             }).catch(function (error) {
                 console.log(error);
             });
