@@ -73,6 +73,10 @@
             .domain([0, 18000000])
             .range([height, 0]);
 
+					// Define the y-axis generator with customized tick format
+					var yAxis = d3.axisLeft(y)
+  					.tickFormat(d3.format(".2s")); // Custom format: e.g., "1M" instead of "1000000"
+
           // Implement the bar chart using D3 (example code)
           svg.selectAll("rect")
             .data(data)
@@ -90,7 +94,7 @@
             .call(d3.axisBottom(x));
 
           svg.append("g")
-            .call(d3.axisLeft(y));
+  					.call(yAxis);
 					
 					// Add axis titles
           svg.append("text")
