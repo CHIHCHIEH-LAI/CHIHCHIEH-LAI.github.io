@@ -43,28 +43,28 @@
                     d.rating = +d.rating;
                 });
 
-                // Define the parameters (example code)
+                // Define the parameters
                 var selectedCountry = "USA";
                 var selectedPosition = "G";
 
-                // Filter the scatter plot data based on the selected country and position (example code)
+                // Filter the scatter plot data based on the selected country and position
                 var filteredBarChartData = barChartData.filter(function (d) {
                     return d.country === selectedCountry;
                 });
 
-                // Filter the scatter plot data based on the selected country and position (example code)
+                // Filter the scatter plot data based on the selected country and position
                 var filteredScatterPlotData = scatterPlotData.filter(function (d) {
                     return d.country === selectedCountry && d.position === selectedPosition;
                 });
 
                 // Build the first scene - Overview bar chart
                 function buildOverviewBarChart(data) {
-                    // Define the dimensions and margins for the chart (example code)
+                    // Define the dimensions and margins for the chart
                     var width = 500;
                     var height = 300;
                     var margin = { top: 20, right: 20, bottom: 50, left: 65};
 
-                    // Create the SVG element (example code)
+                    // Create the SVG element
                     var svg = d3.select("#visualization-container")
                         .append("svg")
                         .attr("width", width + margin.left + margin.right)
@@ -86,7 +86,7 @@
                     var yAxis = d3.axisLeft(y)
                         .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
 
-                    // Implement the bar chart using D3 (example code)
+                    // Implement the bar chart using D3
                     svg.selectAll("rect")
                         .data(data)
                         .enter()
@@ -119,21 +119,22 @@
                         .attr("transform", "rotate(-90, " + (-margin.left+20) + ", " + height / 2 + ")")
                         .text("Average Salary");
 
-                    // Add event listeners or triggers to update the selected country and position (example code)
+                    // Add event listeners or triggers to update the selected country and position
                     // ...
 
-                    // Add tooltips using d3-annotation (example code)
-                    // ...
+                    // Add tooltips using d3-annotation
+                    bars.append("title")
+                        .text(function (d) { return "Record Count: " + d.record_count + "\nAverage Salary: $" + d.average_salary; });
                 }
 
                 // Build the second scene - Scatter plot
                 function buildScatterPlot(data) {
-                    // Define the dimensions and margins for the plot (example code)
+                    // Define the dimensions and margins for the plot
                     var width = 500;
                     var height = 300;
                     var margin = { top: 20, right: 20, bottom: 50, left: 50 };
 
-                    // Create the SVG element (example code)
+                    // Create the SVG element
                     var svg = d3.select("#visualization-container")
                         .append("svg")
                         .attr("width", width + margin.left + margin.right)
@@ -141,10 +142,10 @@
                         .append("g")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                    // Implement the scatter plot using D3 (example code)
+                    // Implement the scatter plot using D3
                     // ...
 
-                    // Add event listeners or triggers to update the selected country and position (example code)
+                    // Add event listeners or triggers to update the selected country and position
                     // ...
                 }
 
