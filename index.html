@@ -81,11 +81,6 @@
                     var filteredBarChartData = barChartData.filter(function (d) {
                         return d.country === selectedCountry;
                     });
-
-                    // Filter the scatter plot data based on the selected country and position
-                    var filteredScatterPlotData = scatterPlotData.filter(function (d) {
-                        return d.country === selectedCountry && d.position === selectedPosition;
-                    });
                     
                     // Call the functions to build/update the initial scenes
                     buildOverviewBarChart(filteredBarChartData);
@@ -131,7 +126,19 @@
                         .attr("y", function (d) { return y(d.average_salary); })
                         .attr("width", x.bandwidth())
                         .attr("height", function (d) { return height - y(d.average_salary); })
-                        .attr("fill", "steelblue");
+                        .attr("fill", "steelblue")
+                        .on("click", function (d) {
+                            // Clear the existing chart
+                            clearChart();
+                            
+                            // Filter the scatter plot data based on the selected bar
+                            var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
+                                return d.country === selectedCountry && d.position === selectedPosition;
+                            });
+                            
+                            // Call the function to build the scatter plot scene
+                            buildScatterPlot(filteredScatterPlotData);
+                        });
 
                     // Add axes
                     svg.append("g")
@@ -164,7 +171,7 @@
                         .style("font-weight", "bold")
                         .text("NBA Players Average Salary by Position");
 
-                    // Add tooltips using d3-annotation
+                    // Add tooltips
                     bars.append("title")
                         .text(function (d) { 
                             var scaledSalary = (d.average_salary / 1000000).toFixed(3);
