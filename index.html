@@ -126,21 +126,18 @@
                         .attr("width", x.bandwidth())
                         .attr("height", function (d) { return height - y(d.average_salary); })
                         .attr("fill", "steelblue")
-                        .on("click", function (d) {
+                        .on("click", function (barData) { // Update parameter name to avoid conflict
                             // Clear the existing chart
                             clearChart();
-
+                    
                             // Get the selected position from the clicked bar
-                            var selectedPosition = d.position;
-
-                            console.log(selectedPosition)
-
+                            var selectedPosition = barData.position;
+                    
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
-                                // return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                                return scatterData.country === selectedCountry;
+                                return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
                             });
-                            
+                    
                             // Call the function to build the scatter plot scene
                             buildScatterPlot(filteredScatterPlotData);
                         });
