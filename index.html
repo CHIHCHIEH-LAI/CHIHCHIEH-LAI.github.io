@@ -81,11 +81,6 @@
                     var filteredBarChartData = barChartData.filter(function (d) {
                         return d.country === selectedCountry;
                     });
-
-                    // Filter the scatter plot data based on the selected bar
-                    var filteredScatterPlotData = scatterPlotData.filter(function (d) {
-                        return d.country === selectedCountry && d.position === selectedPosition;
-                    });
                     
                     // Call the functions to build/update the initial scenes
                     buildOverviewBarChart(filteredBarChartData);
@@ -135,6 +130,11 @@
                         .on("click", function (d) {
                             // Clear the existing chart
                             clearChart();
+
+                            // Filter the scatter plot data based on the selected bar
+                            var filteredScatterPlotData = scatterPlotData.filter(function (d) {
+                                return d.country === selectedCountry && d.position === selectedPosition;
+                            });
                             
                             // Call the function to build the scatter plot scene
                             buildScatterPlot(filteredScatterPlotData);
