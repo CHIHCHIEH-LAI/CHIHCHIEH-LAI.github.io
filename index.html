@@ -53,7 +53,7 @@
           // Define the dimensions and margins for the chart (example code)
           var width = 500;
           var height = 300;
-          var margin = { top: 20, right: 20, bottom: 50, left: 50 };
+          var margin = { top: 20, right: 30, bottom: 50, left: 50 };
 
           // Create the SVG element (example code)
           var svg = d3.select("#visualization-container")
@@ -70,7 +70,7 @@
             .padding(0.1);
 
           var y = d3.scaleLinear()
-            .domain([0, 46000000])
+            .domain([0, 18000000])
             .range([height, 0]);
 
           // Implement the bar chart using D3 (example code)
