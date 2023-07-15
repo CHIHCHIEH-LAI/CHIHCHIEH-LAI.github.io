@@ -83,7 +83,7 @@
                     });
 
                     // Filter the scatter plot data based on the selected bar
-                    var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
+                    var filteredScatterPlotData = scatterPlotData.filter(function (d) {
                         return d.country === selectedCountry && d.position === selectedPosition;
                     });
                     
