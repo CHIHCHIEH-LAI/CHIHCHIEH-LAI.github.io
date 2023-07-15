@@ -124,7 +124,10 @@
 
                     // Add tooltips using d3-annotation
                     bars.append("title")
-                        .text(function (d) { return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + d.average_salary; });
+                        .text(function (d) { 
+                            var formattedSalary = Math.round(d.average_salary).toLocaleString();
+                            return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + formattedSalary; 
+                        });
                 }
 
                 // Build the second scene - Scatter plot
