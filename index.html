@@ -60,8 +60,16 @@
                     updateVisualization();
                 });
 
+                // Function to clear the chart
+                function clearChart() {
+                  d3.select("#visualization-container").selectAll("svg").remove();
+                }
+
                 // Function to update the visualization based on the selected country
                 function updateVisualization() {
+                    // Clear the existing chart
+                    clearChart();
+                    
                     // Filter the scatter plot data based on the selected country and position
                     var filteredBarChartData = barChartData.filter(function (d) {
                         return d.country === selectedCountry;
