@@ -171,7 +171,7 @@
                         .style("font-weight", "bold")
                         .text("NBA Players Average Salary by Position");
 
-                    // Add tooltips
+                    //  Add tooltips using d3-annotation
                     bars.append("title")
                         .text(function (d) { 
                             var scaledSalary = (d.average_salary / 1000000).toFixed(3);
@@ -194,11 +194,62 @@
                         .append("g")
                         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-                    // Implement the scatter plot using D3
-                    // ...
+                    // Define x and y scales
+                    var x = d3.scaleLinear()
+                        .domain([0, 46000000])
+                        .range([0, width]);
+                
+                    var y = d3.scaleLinear()
+                        .domain([60, 100])
+                        .range([height, 0]);
 
-                    // Add event listeners or triggers to update the selected country and position
-                    // ...
+                    // Create circles for the scatter plot
+                    svg.selectAll("circle")
+                        .data(data)
+                        .enter()
+                        .append("circle")
+                        .attr("cx", function(d) { return x(d.salary); })
+                        .attr("cy", function(d) { return y(d.rating); })
+                        .attr("r", 4)
+                        .attr("fill", "steelblue");
+
+                    // Add axes
+                    svg.append("g")
+                        .attr("transform", "translate(0," + height + ")")
+                        .call(d3.axisBottom(x));
+                
+                    svg.append("g")
+                        .call(d3.axisLeft(y));
+
+                    // Add axis titles
+                    svg.append("text")
+                        .attr("x", width / 2)
+                        .attr("y", height + margin.bottom - 10)
+                        .attr("text-anchor", "middle")
+                        .text("Salary");
+                
+                    svg.append("text")
+                        .attr("x", -margin.left + 20)
+                        .attr("y", height / 2)
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "rotate(-90, " + (-margin.left + 20) + ", " + height / 2 + ")")
+                        .text("Rating");
+
+                    // Add chart title
+                    svg.append("text")
+                        .attr("x", width / 2)
+                        .attr("y", -margin.top + 20)
+                        .attr("text-anchor", "middle")
+                        .style("font-size", "22px")
+                        .style("font-weight", "bold")
+                        .text("NBA Players Salary vs Rating");
+
+                    // Add tooltips using d3-annotation
+                    svg.selectAll("circle")
+                        .append("title")
+                        .text(function(d) {
+                            return "Salary: $" + d.salary.toLocaleString() + "\nRating: " + d.rating;
+                        });
                 }
                 
                 // Call the function to initially build the visualization
