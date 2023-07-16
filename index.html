@@ -121,7 +121,7 @@
                         .data(data)
                         .enter()
                         .append("rect")
-                        .attr("x", function (d) { return x(d.position); })
+                        .attr("x", function (d) { console.log(d);return x(d.position); })
                         .attr("y", function (d) { return y(d.average_salary); })
                         .attr("width", x.bandwidth())
                         .attr("height", function (d) { return height - y(d.average_salary); })
@@ -131,7 +131,7 @@
                             // Clear the existing chart
                             clearChart();
 
-                            console.log(d);
+                            // console.log(d);
                     
                             // Get the selected position from the clicked bar
                             // var selectedPosition = d.position;
