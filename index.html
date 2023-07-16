@@ -132,8 +132,8 @@
                             var selectedPosition = d.position;
                             // var selectedPosition = "G";
 
-                            // Clear the existing chart
-                            clearChart();
+                            // // Clear the existing chart
+                            // clearChart();
                     
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
@@ -185,6 +185,9 @@
 
                 // Build the second scene - Scatter plot
                 function buildScatterPlot(data) {
+                    // Clear the existing chart
+                    clearChart();
+                    
                     // Define the dimensions and margins for the plot
                     var width = 600;
                     var height = 300;
