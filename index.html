@@ -131,18 +131,8 @@
                             // Clear the existing chart
                             clearChart();
                     
-                            // Get the selected position from the clicked bar
-                            // var selectedPosition = d.position;
-                            var selectedPosition = "C";
-                    
-                            // Filter the scatter plot data based on the selected bar
-                            var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
-                                // return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                                return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                            });
-                    
                             // Call the function to build the scatter plot scene
-                            buildScatterPlot(filteredScatterPlotData);
+                            buildScatterPlot(d.position);
                         });
 
                     // Add axes
@@ -185,7 +175,12 @@
                 }
 
                 // Build the second scene - Scatter plot
-                function buildScatterPlot(data) {
+                function buildScatterPlot(selectedPosition) {
+                    
+                    // Filter the scatter plot data based on the selected bar
+                    var data = scatterPlotData.filter(function (scatterData) {
+                        return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
+                    });
                     
                     // Define the dimensions and margins for the plot
                     var width = 600;
