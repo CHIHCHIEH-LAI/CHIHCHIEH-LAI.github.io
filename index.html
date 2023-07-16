@@ -130,19 +130,13 @@
 
                             // Clear the existing chart
                             clearChart();
-
-                            console.log(d);
-
-                            console.log(d.srcElement.__data__.position);
                     
                             // Get the selected position from the clicked bar
-                            // var selectedPosition = d.position;
-                            var selectedPosition = "C";
+                            var selectedPosition = d.srcElement.__data__.position;
                     
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
-                                // return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                                return scatterData.country === selectedCountry;
+                                return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
                             });
                     
                             // Call the function to build the scatter plot scene
