@@ -75,6 +75,8 @@
                 function updateVisualization() {
                     // Clear the existing chart
                     clearChart();
+
+                    console.log(d.position);
                     
                     // Filter the scatter plot data based on the selected country and position
                     var filteredBarChartData = barChartData.filter(function (d) {
