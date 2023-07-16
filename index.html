@@ -127,13 +127,13 @@
                         .attr("height", function (d) { return height - y(d.average_salary); })
                         .attr("fill", "steelblue")
                         .on("click", function (d) {
+
+                            // Clear the existing chart
+                            clearChart();
                     
                             // Get the selected position from the clicked bar
-                            var selectedPosition = d.position;
-                            // var selectedPosition = "G";
-
-                            // // Clear the existing chart
-                            // clearChart();
+                            // var selectedPosition = d.position;
+                            var selectedPosition = "G";
                     
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
@@ -185,8 +185,6 @@
 
                 // Build the second scene - Scatter plot
                 function buildScatterPlot(data) {
-                    // Clear the existing chart
-                    clearChart();
                     
                     // Define the dimensions and margins for the plot
                     var width = 600;
