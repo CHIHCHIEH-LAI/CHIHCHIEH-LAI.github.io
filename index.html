@@ -138,7 +138,7 @@
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
                                 // return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                                return scatterData.country === selectedCountry && scatterData.position === d.position;
+                                return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
                             });
                     
                             // Call the function to build the scatter plot scene
