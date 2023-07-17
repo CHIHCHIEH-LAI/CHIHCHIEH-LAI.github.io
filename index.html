@@ -297,11 +297,11 @@
                                 title: '',
                                 wrap: 100
                             },
-                            x: margin.left,
+                            x: 0, // x-coordinate start of the line (leftmost position)
                             y: y(100),
-                            data: { x: margin.left, y: y(100) },
-                            dx: width - margin.left - margin.right,
-                            dy: 0
+                            data: { x: 0, y: y(100) },
+                            dx: width, // x-coordinate end of the line (rightmost position)
+                            dy: 0 // Vertical alignment of the line
                         },
                         {
                             type: d3.annotationXYThreshold,
@@ -310,10 +310,10 @@
                                 title: '',
                                 wrap: 100
                             },
-                            x: margin.left,
+                            x: 0,
                             y: y(92),
-                            data: { x: margin.left, y: y(92) },
-                            dx: width - margin.left - margin.right,
+                            data: { x: 0, y: y(92) },
+                            dx: width,
                             dy: 0
                         },
                         {
@@ -323,10 +323,10 @@
                                 title: '',
                                 wrap: 100
                             },
-                            x: margin.left,
+                            x: 0,
                             y: y(86),
-                            data: { x: margin.left, y: y(86) },
-                            dx: width - margin.left - margin.right,
+                            data: { x: 0, y: y(86) },
+                            dx: width,
                             dy: 0
                         },
                         {
@@ -336,10 +336,10 @@
                                 title: '',
                                 wrap: 100
                             },
-                            x: margin.left,
+                            x: 0,
                             y: y(76),
-                            data: { x: margin.left, y: y(76) },
-                            dx: width - margin.left - margin.right,
+                            data: { x: 0, y: y(76) },
+                            dx: width,
                             dy: 0
                         }
                     ];
