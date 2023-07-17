@@ -35,7 +35,7 @@
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
-        <button id="back-button" onclick="goBack()">Go Back</button>
+        <button id="back-button">Go Back</button>
         <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
@@ -52,6 +52,7 @@
     <script src="https://unpkg.com/topojson-client@3"></script> <!-- Include topoJSON Client library -->
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
         // Load the bar chart dataset
         d3.csv("average_salary_by_position.csv").then(function (barChartData) {
             // Preprocess the bar chart data
@@ -357,6 +358,9 @@
                         .style('text-anchor', 'start') // Align labels to the right
                         .style('font-size', '16px'); // Adjust font size as needed
                 }
+
+                // Add a click event listener to the back button
+                backButton.addEventListener("click", goBack);
                 
                 // Call the function to initially build the visualization
                 updateVisualization();
@@ -366,6 +370,7 @@
             });
         }).catch(function (error) {
             console.log(error);
+        });
         });
     </script>
 </body>
