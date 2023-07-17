@@ -267,10 +267,11 @@
                           title: '',
                           wrap: 100
                         },
-                        x: width, // x-coordinate start of the line (moved to the right)
+                        x: 0, // x-coordinate start of the line (leftmost position)
                         y: y(93),
-                        data: { x: width, y: y(93) },
-                        dy: -10
+                        data: { x: 0, y: y(93) },
+                        dx: width, // x-coordinate end of the line (rightmost position)
+                        dy: 0 // Vertical alignment of the line
                       },
                       {
                         type: d3.annotationXYThreshold,
