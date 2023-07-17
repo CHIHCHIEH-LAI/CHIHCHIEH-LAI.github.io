@@ -301,18 +301,18 @@
                         .y(function(d) { return d.y; });
                     
                     // Append lines to the SVG
-                    svg.selectAll("line")
+                    svg.selectAll("path.horizontal-line")
                         .data(lineData)
                         .enter()
-                        .append("line")
-                        .attr("x1", 0)  // Starting x-coordinate
-                        .attr("x2", width)  // Ending x-coordinate
-                        .attr("y1", function(d) { return d.y; })  // Starting y-coordinate
-                        .attr("y2", function(d) { return d.y; })  // Ending y-coordinate
+                        .append("path")
+                        .attr("class", "horizontal-line")
+                        .attr("d", function(d) {
+                            return "M" + margin.left + "," + d.y + "H" + (width - margin.right);
+                        })
                         .style("stroke", "red")  // Line color
                         .style("stroke-width", 1)  // Line width
-                        .style('opacity', 0.6)
                         .style("stroke-dasharray", "3,3");  // Dotted line style
+
 
                     // Add line annotations for specific rating values
                     // var lineAnnotations = [
