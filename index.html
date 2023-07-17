@@ -20,7 +20,7 @@
             align-items: center;
         }
 
-        .back-button {
+        #back-button {
             display: none;
             position: absolute;
             top: 10px;
@@ -35,7 +35,7 @@
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
-        <button class="back-button" onclick="goBack()">Back</button>
+        <button id="back-button" onclick="goBack()">Back</button>
         <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
