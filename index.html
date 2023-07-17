@@ -211,7 +211,7 @@
                         .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
 
                     // Create circles for the scatter plot
-                    svg.selectAll("circle")
+                    var circles = svg.selectAll("circle")
                         .data(data)
                         .enter()
                         .append("circle")
@@ -252,11 +252,11 @@
                         .text("NBA Players Salary vs Rating");
 
                     // Add tooltips using d3-annotation
-                    // svg.selectAll("circle")
-                    //     .append("title")
-                    //     .text(function(d) {
-                    //         return "Salary: $" + d.salary.toLocaleString() + "\nRating: " + d.rating;
-                    //     });
+                    circles.append("title")
+                        .text(function (d) { 
+                            var scaledSalary = (d.salary / 1000000).toFixed(3);
+                            return "Name: " + d.full_name + "\nRating: " + d.rating + "\nSalary: $" + scaledSalary + "M"; 
+                        });
                 }
                 
                 // Call the function to initially build the visualization
