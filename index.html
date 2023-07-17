@@ -267,9 +267,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: width, // x-coordinate start of the line (moved to the right)
+                        x: 0,
                         y: y(93),
-                        data: { x: width, y: y(93) },
+                        data: { x: 0, y: y(93) },
                         dy: -10
                       },
                       {
@@ -279,9 +279,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: width,
+                        x: 0,
                         y: y(86),
-                        data: { x: width, y: y(86) },
+                        data: { x: 0, y: y(86) },
                         dy: -10
                       },
                       {
@@ -291,9 +291,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: width,
+                        x: 0,
                         y: y(76),
-                        data: { x: width, y: y(76) },
+                        data: { x: 0, y: y(76) },
                         dy: -10
                       },
                       {
@@ -303,9 +303,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: width,
+                        x: 0,
                         y: y(64),
-                        data: { x: width, y: y(64) },
+                        data: { x: 0, y: y(64) },
                         dy: -10
                       }
                     ];
@@ -324,6 +324,12 @@
                       .annotations(lineAnnotations);
                     
                     lineAnnotationGroup.call(makeLineAnnotations);
+                    
+                    // Style the line annotations
+                    lineAnnotationGroup.selectAll('.annotation-line path')
+                      .style('stroke-dasharray', '3,3') // Make the line dotted
+                      .style('opacity', 0.6) // Reduce opacity
+                      .style('stroke-width', 1.5) // Increase stroke width
 
                 }
                 
