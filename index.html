@@ -69,6 +69,7 @@
 
                 // Define the parameters
                 var selectedCountry = "USA";
+                var selectedPosition = "G";
                 var isSecondScene = false; // Flag to track if the second scene is built
 
                 // Handle the dropdown menu selection
@@ -133,9 +134,14 @@
                     var yAxis = d3.axisLeft(y)
                         .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
 
+                    // Filter the scatter plot data based on the selected country and position (example code)
+                    var filteredBarChartData = barChartData.filter(function(d) {
+                      return d.country === selectedCountry;
+                    });
+
                     // Implement the bar chart using D3
                     var bars = svg.selectAll("rect")
-                        .data(barChartData)
+                        .data(filteredBarChartData)
                         .enter()
                         .append("rect")
                         .attr("x", function (d) { return x(d.position); })
@@ -143,8 +149,9 @@
                         .attr("width", x.bandwidth())
                         .attr("height", function (d) { return height - y(d.average_salary); })
                         .attr("fill", "steelblue")
-                        .on("click", function () {
+                        .on("click", function (d) {
                             isSecondScene = true;
+                            selectedPosition = d.srcElement.__data__.position;
                             updateVisualization();
                         });
 
@@ -214,9 +221,14 @@
                     var xAxis = d3.axisBottom(x)
                         .tickFormat(d3.format("~s")); // Custom format: e.g., "1M" instead of "1000000"
 
+                    // Filter the scatter plot data based on the selected country and position (example code)
+                    var filteredScatterPlotData = scatterPlotData.filter(function(d) {
+                      return d.country === selectedCountry && d.position === selectedPosition;
+                    });
+                    
                     // Create circles for the scatter plot
                     var circles = svg.selectAll("circle")
-                        .data(scatterPlotData)
+                        .data(filteredScatterPlotData)
                         .enter()
                         .append("circle")
                         .attr("cx", function(d) { return x(d.salary); })
