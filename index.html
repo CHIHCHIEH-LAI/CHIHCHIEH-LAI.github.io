@@ -21,6 +21,7 @@
         }
 
         #back-button {
+            display: none;
             position: absolute;
             top: 20px;
             left: 20px;
@@ -31,9 +32,6 @@
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
-        <div id="back-button">
-            <button onclick="goBack()">Back</button>
-        </div>
         <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
@@ -41,6 +39,9 @@
                 <option value="USA">USA</option>
                 <option value="Other">Other</option>
             </select>
+        </div>
+        <div id="back-button">
+            <button onclick="goBack()">Go Back</button>
         </div>
     </div>
 
@@ -68,6 +69,7 @@
 
                 // Define the parameters
                 var selectedCountry = "USA";
+                var isSecondScene = false; // Flag to track if the second scene is built
 
                 // Handle the dropdown menu selection
                 d3.select("#container").select("#dropdown-container").select("#country-select").on("change", function () {
@@ -82,28 +84,28 @@
 
                 // Function to go back to the first scene
                 function goBack() {
-                    clearChart();
+                    isSecondScene = false;
                     updateVisualization();
                 }
 
-                // Function to update the visualization based on the selected country
+                // Function to update the visualization based on the selected country and scene
                 function updateVisualization() {
                     // Clear the existing chart
                     clearChart();
 
-                    // Filter the scatter plot data based on the selected country and position
-                    var filteredBarChartData = barChartData.filter(function (d) {
-                        return d.country === selectedCountry;
-                    });
-
-                    // Call the functions to build/update the initial scenes
-                    buildOverviewBarChart(filteredBarChartData);
-                    // buildOverviewBarChart(barChartData);
-                    // buildScatterPlot(filteredScatterPlotData);
+                    if (isSecondScene) {
+                        // Show the back button
+                        d3.select("#back-button").style("display", "block");
+                        buildScatterPlot();
+                    } else {
+                        // Hide the back button
+                        d3.select("#back-button").style("display", "none");
+                        buildOverviewBarChart();
+                    }
                 }
 
                 // Build the first scene - Overview bar chart
-                function buildOverviewBarChart(data) {
+                function buildOverviewBarChart() {
                     // Define the dimensions and margins for the chart
                     var width = 600;
                     var height = 300;
@@ -133,7 +135,7 @@
 
                     // Implement the bar chart using D3
                     var bars = svg.selectAll("rect")
-                        .data(data)
+                        .data(barChartData)
                         .enter()
                         .append("rect")
                         .attr("x", function (d) { return x(d.position); })
@@ -141,21 +143,9 @@
                         .attr("width", x.bandwidth())
                         .attr("height", function (d) { return height - y(d.average_salary); })
                         .attr("fill", "steelblue")
-                        .on("click", function (d) {
-
-                            // Clear the existing chart
-                            clearChart();
-
-                            // Get the selected position from the clicked bar
-                            var selectedPosition = d.srcElement.__data__.position;
-
-                            // Filter the scatter plot data based on the selected bar
-                            var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
-                                return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
-                            });
-
-                            // Call the function to build the scatter plot scene
-                            buildScatterPlot(filteredScatterPlotData);
+                        .on("click", function () {
+                            isSecondScene = true;
+                            updateVisualization();
                         });
 
                     // Add axes
@@ -198,7 +188,7 @@
                 }
 
                 // Build the second scene - Scatter plot
-                function buildScatterPlot(data) {
+                function buildScatterPlot() {
                     // Define the dimensions and margins for the plot
                     var width = 600;
                     var height = 300;
@@ -216,7 +206,7 @@
                     var x = d3.scaleLinear()
                         .domain([0, 48000000])
                         .range([0, width]);
-
+                
                     var y = d3.scaleLinear()
                         .domain([65, 100])
                         .range([height, 0]);
@@ -226,7 +216,7 @@
 
                     // Create circles for the scatter plot
                     var circles = svg.selectAll("circle")
-                        .data(data)
+                        .data(scatterPlotData)
                         .enter()
                         .append("circle")
                         .attr("cx", function(d) { return x(d.salary); })
@@ -238,7 +228,7 @@
                     svg.append("g")
                         .attr("transform", "translate(0," + height + ")")
                         .call(xAxis);
-
+                
                     svg.append("g")
                         .call(d3.axisLeft(y));
 
@@ -248,7 +238,7 @@
                         .attr("y", height + margin.bottom - 10)
                         .attr("text-anchor", "middle")
                         .text("Salary ($)");
-
+                
                     svg.append("text")
                         .attr("x", -margin.left + 20)
                         .attr("y", height / 2)
@@ -290,8 +280,8 @@
                         {
                             type: d3.annotationXYThreshold,
                             note: {
-                                label: '',
-                                title: 'All-Stars',
+                                label: 'All-Stars',
+                                title: '',
                                 wrap: 100
                             },
                             x: 0,
@@ -327,11 +317,11 @@
                             dy: 0
                         }
                     ];
-
+                    
                     // Create a line annotation group
                     var lineAnnotationGroup = svg.append('g')
                         .attr('class', 'line-annotation-group');
-
+                    
                     // Add the line annotations to the group
                     var makeLineAnnotations = d3.annotation()
                         .type(d3.annotationXYThreshold)
@@ -340,24 +330,24 @@
                             y: function(d) { return d.y; }
                         })
                         .annotations(lineAnnotations);
-
+                    
                     lineAnnotationGroup.call(makeLineAnnotations);
-
+                    
                     // Style the line annotations
                     lineAnnotationGroup.selectAll('.annotation-line path')
                         .style('stroke-dasharray', '3,3') // Make the line dotted
                         .style('opacity', 0.6) // Reduce opacity
                         .style('stroke-width', 1.5); // Increase stroke width
-
+                    
                     // Style the line annotation labels
                     lineAnnotationGroup.selectAll('.annotation-note-label')
                         .style('text-anchor', 'start') // Align labels to the right
                         .style('font-size', '16px'); // Adjust font size as needed
                 }
-
+                
                 // Call the function to initially build the visualization
                 updateVisualization();
-
+                
             }).catch(function (error) {
                 console.log(error);
             });
