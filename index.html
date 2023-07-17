@@ -267,9 +267,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width, // x-coordinate start of the line (moved to the right)
                         y: y(93),
-                        data: { x: 0, y: y(93) },
+                        data: { x: width, y: y(93) },
                         dy: -10
                       },
                       {
@@ -279,9 +279,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(86),
-                        data: { x: 0, y: y(86) },
+                        data: { x: width, y: y(86) },
                         dy: -10
                       },
                       {
@@ -291,9 +291,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(76),
-                        data: { x: 0, y: y(76) },
+                        data: { x: width, y: y(76) },
                         dy: -10
                       },
                       {
@@ -303,9 +303,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(64),
-                        data: { x: 0, y: y(64) },
+                        data: { x: width, y: y(64) },
                         dy: -10
                       }
                     ];
@@ -330,6 +330,12 @@
                       .style('stroke-dasharray', '3,3') // Make the line dotted
                       .style('opacity', 0.6) // Reduce opacity
                       .style('stroke-width', 1.5) // Increase stroke width
+                    
+                    // Style the line annotation labels
+                    lineAnnotationGroup.selectAll('.annotation-note-label')
+                      .style('text-anchor', 'start') // Align labels to the right
+                      .style('font-size', '12px'); // Adjust font size as needed
+
                 }
                 
                 // Call the function to initially build the visualization
