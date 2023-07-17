@@ -314,6 +314,17 @@
                         .style("stroke-width", 1)  // Line width
                         .style("stroke-dasharray", "3,3");  // Dotted line style
 
+                    // Annotation data
+                    var annotationData = [
+                        { ratingRange: 'Superstars', ratingMin: 93, ratingMax: 100 },
+                        { ratingRange: 'All-Stars', ratingMin: 86, ratingMax: 92 },
+                        { ratingRange: 'Starters', ratingMin: 76, ratingMax: 85 },
+                        { ratingRange: 'Role Players', ratingMin: 60, ratingMax: 75 }
+                    ];
+                    
+                    // Create an annotation group
+                    var annotationGroup = svg.append('g')
+                        .attr('class', 'annotation-group');
 
                     // Add the annotations to the group
                     var makeAnnotations = d3.annotation()
