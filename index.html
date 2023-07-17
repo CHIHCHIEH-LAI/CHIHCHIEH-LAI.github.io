@@ -100,12 +100,12 @@
                     clearChart();
 
                     if (isSecondScene) {
-                        // Show the back button
-                        backButton.style.display = "block";
+                        backButton.style.display = "block"; // Show the back button
+                        dropdown.property("disabled", true); // Disable the dropdown menu
                         buildScatterPlot();
                     } else {
-                        // Hide the back button
-                        backButton.style.display = "none";
+                        backButton.style.display = "none"; // Hide the back button
+                        dropdown.property("disabled", false); // Enable the dropdown menu
                         buildOverviewBarChart();
                     }
                 }
