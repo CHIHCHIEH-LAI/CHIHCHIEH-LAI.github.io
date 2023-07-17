@@ -205,6 +205,11 @@
                         .attr("text-anchor", "start")
                         .style("font-size", "16px")
                         .text("Click any bar to drill-down");
+                        .append("tspan")
+                        .attr("x", margin.left)
+                        .attr("dy", "1.2em")
+                        .text("Hover over a bar for more details");
+
                 }
 
                 // Build the second scene - Scatter plot
@@ -278,7 +283,7 @@
                         .attr("text-anchor", "middle")
                         .style("font-size", "20px")
                         .style("font-weight", "bold")
-                        .text("Details: NBA First-Round Drafted Players' Salary and Rating for " + selectedPosition);
+                        .text("Details: NBA First-Round Drafted Players' Salary and Rating for " + selectedPosition)
 
                     // Add tooltips using d3-annotation
                     circles.append("title")
