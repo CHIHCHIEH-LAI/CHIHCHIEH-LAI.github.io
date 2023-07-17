@@ -52,6 +52,7 @@
     <script src="https://unpkg.com/topojson-client@3"></script> <!-- Include topoJSON Client library -->
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
         // Load the bar chart dataset
         d3.csv("average_salary_by_position.csv").then(function (barChartData) {
             // Preprocess the bar chart data
@@ -366,6 +367,7 @@
             });
         }).catch(function (error) {
             console.log(error);
+        });
         });
     </script>
 </body>
