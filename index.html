@@ -80,6 +80,9 @@
                     updateVisualization();
                 });
 
+                // Get a reference to the back button element
+                var backButton = document.getElementById("back-button");
+
                 // Function to clear the chart
                 function clearChart() {
                     d3.select("#container").select("#visualization-container").selectAll("svg").remove();
@@ -98,11 +101,11 @@
 
                     if (isSecondScene) {
                         // Show the back button
-                        d3.select("#container").select("#back-button").style("display", "block");
+                        backButton.style.display = "block";
                         buildScatterPlot();
                     } else {
                         // Hide the back button
-                        d3.select("#container").select("#back-button").style("display", "none");
+                        backButton.style.display = "none";
                         buildOverviewBarChart();
                     }
                 }
