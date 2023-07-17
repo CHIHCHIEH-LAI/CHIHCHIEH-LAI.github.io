@@ -257,6 +257,32 @@
                             var scaledSalary = (d.salary / 1000000).toFixed(3);
                             return "Name: " + d.full_name + "\nRating: " + d.rating + "\nSalary: $" + scaledSalary + "M"; 
                         });
+
+                    // Add annotations for rating tiers
+                    var annotations = [
+                        { ratingRange: [93, 99], text: "Superstars" },
+                        { ratingRange: [86, 92], text: "All-Stars" },
+                        { ratingRange: [76, 85], text: "Starters" },
+                        { ratingRange: [60, 75], text: "Role Players" }
+                    ];
+
+                    // Create the annotation function
+                    var makeAnnotations = d3.annotation()
+                        .type(d3.annotationLabel)
+                        .annotations(annotations.map(function(annotation) {
+                            return {
+                                note: {
+                                    label: annotation.text
+                                },
+                                x: x(23000000), // x-coordinate for the annotation
+                                y: y((annotation.ratingRange[0] + annotation.ratingRange[1]) / 2) // y-coordinate for the annotation
+                            };
+                        }));
+                    
+                    // Call the annotation function to add the annotations to the scatter plot
+                    svg.append("g")
+                        .attr("class", "annotation-group")
+                        .call(makeAnnotations);
                 }
                 
                 // Call the function to initially build the visualization
