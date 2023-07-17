@@ -267,10 +267,10 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0, // x-coordinate start of the line
-                        y: y(93), // y-coordinate start of the line
-                        data: { x: 0, y: y(93) }, // data point for the line
-                        dy: -10 // y-offset of the label from the line
+                        x: width, // x-coordinate start of the line (moved to the right)
+                        y: y(93),
+                        data: { x: width, y: y(93) },
+                        dy: -10
                       },
                       {
                         type: d3.annotationXYThreshold,
@@ -279,9 +279,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(86),
-                        data: { x: 0, y: y(86) },
+                        data: { x: width, y: y(86) },
                         dy: -10
                       },
                       {
@@ -291,9 +291,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(76),
-                        data: { x: 0, y: y(76) },
+                        data: { x: width, y: y(76) },
                         dy: -10
                       },
                       {
@@ -303,9 +303,9 @@
                           title: '',
                           wrap: 100
                         },
-                        x: 0,
+                        x: width,
                         y: y(64),
-                        data: { x: 0, y: y(64) },
+                        data: { x: width, y: y(64) },
                         dy: -10
                       }
                     ];
@@ -324,6 +324,7 @@
                       .annotations(lineAnnotations);
                     
                     lineAnnotationGroup.call(makeLineAnnotations);
+
                 }
                 
                 // Call the function to initially build the visualization
