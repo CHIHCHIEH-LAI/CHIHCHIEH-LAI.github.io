@@ -309,6 +309,7 @@
                         .attr("d", function(d) {
                             return "M" + "0" + "," + d.y + "H" + width;
                         })
+                        .style("stroke", "gray")  // Line color
                         .style('opacity', 0.6) // Reduce opacity
                         .style("stroke-width", 1)  // Line width
                         .style("stroke-dasharray", "3,3");  // Dotted line style
