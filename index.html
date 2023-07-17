@@ -32,6 +32,7 @@
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
+        <button class="back-button" onclick="goBack()">Back</button>
         <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
@@ -39,9 +40,6 @@
                 <option value="USA">USA</option>
                 <option value="Other">Other</option>
             </select>
-        </div>
-        <div id="back-button">
-            <button onclick="goBack()">Go Back</button>
         </div>
     </div>
 
