@@ -330,7 +330,7 @@
                     var makeAnnotations = d3.annotation()
                         .type(d3.annotationLabel)
                         .accessors({
-                            x: width,
+                            x: width-40,
                             y: function(d) { return y((d.ratingMin + d.ratingMax) / 2); }
                         })
                         .annotations(annotationData.map(function(d) {
@@ -340,7 +340,7 @@
                                     title: '',
                                     wrap: 100
                                 },
-                                x: width,
+                                x: width-40,
                                 y: y(d.ratingMax),
                                 dx: 40,
                                 dy: 0
@@ -351,7 +351,7 @@
                     
                     // Style the annotation labels
                     annotationGroup.selectAll('.annotation-note-label')
-                        .style('text-anchor', 'start') // Align labels to the right
+                        .style('text-anchor', 'middle') // Align labels to the right
                         .style('font-size', '16px'); // Adjust font size as needed
                     
                     // Add annotation
