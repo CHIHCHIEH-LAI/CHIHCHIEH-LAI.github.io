@@ -197,6 +197,15 @@
                             var scaledSalary = (d.average_salary / 1000000).toFixed(3);
                             return "Position: " + d.position + "\nRecord Count: " + d.record_count + "\nAverage Salary: $" + scaledSalary + "M"; 
                         });
+                    
+                    // Add annotation
+                    svg.append("text")
+                        .attr("x", width / 2)
+                        .attr("y", height / 2)
+                        .attr("text-anchor", "middle")
+                        .style("font-size", "16px")
+                        .style("font-weight", "bold")
+                        .text("Click any bar to drill-down");
                 }
 
                 // Build the second scene - Scatter plot
