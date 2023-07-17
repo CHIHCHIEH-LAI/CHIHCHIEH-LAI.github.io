@@ -75,7 +75,7 @@
                 var isSecondScene = false; // Flag to track if the second scene is built
 
                 // Handle the dropdown menu selection
-                d3.select("#container").select("#dropdown-container").select("#country-select").on("change", function () {
+                var dropdown = d3.select("#container").select("#dropdown-container").select("#country-select").on("change", function () {
                     selectedCountry = this.value;
                     updateVisualization();
                 });
