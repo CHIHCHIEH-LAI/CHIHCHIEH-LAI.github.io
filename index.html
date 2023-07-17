@@ -258,31 +258,68 @@
                             return "Name: " + d.full_name + "\nRating: " + d.rating + "\nSalary: $" + scaledSalary + "M"; 
                         });
 
-                    // Add annotations for rating tiers
+                    // Add annotations to differentiate tiers
                     var annotations = [
-                        { ratingRange: [93, 99], text: "Superstars" },
-                        { ratingRange: [86, 92], text: "All-Stars" },
-                        { ratingRange: [76, 85], text: "Starters" },
-                        { ratingRange: [60, 75], text: "Role Players" }
+                      {
+                        note: {
+                          label: 'Superstars',
+                          title: '93-99',
+                          wrap: 100 // Wrap label text after 100 characters
+                        },
+                        x: width - 50, // x-coordinate of the annotation (adjusted based on your visualization)
+                        y: y(99), // y-coordinate of the annotation
+                        dx: -20, // x-offset of the label from the point
+                        dy: -10 // y-offset of the label from the point
+                      },
+                      {
+                        note: {
+                          label: 'All-Stars',
+                          title: '86-92',
+                          wrap: 100
+                        },
+                        x: width - 50,
+                        y: y(92),
+                        dx: -20,
+                        dy: -10
+                      },
+                      {
+                        note: {
+                          label: 'Starters',
+                          title: '85-76',
+                          wrap: 100
+                        },
+                        x: width - 50,
+                        y: y(76),
+                        dx: -20,
+                        dy: -10
+                      },
+                      {
+                        note: {
+                          label: 'Role Players',
+                          title: '75-60',
+                          wrap: 100
+                        },
+                        x: width - 50,
+                        y: y(60),
+                        dx: -20,
+                        dy: -10
+                      }
                     ];
-
-                    // Create the annotation function
-                    var makeAnnotations = d3.annotation()
-                        .type(d3.annotationLabel)
-                        .annotations(annotations.map(function(annotation) {
-                            return {
-                                note: {
-                                    label: annotation.text
-                                },
-                                x: x(23000000), // x-coordinate for the annotation
-                                y: y((annotation.ratingRange[0] + annotation.ratingRange[1]) / 2) // y-coordinate for the annotation
-                            };
-                        }));
                     
-                    // Call the annotation function to add the annotations to the scatter plot
-                    svg.append("g")
-                        .attr("class", "annotation-group")
-                        .call(makeAnnotations);
+                    // Create an annotation group
+                    var annotationGroup = svg.append('g')
+                      .attr('class', 'annotation-group');
+                    
+                    // Add the annotations to the group
+                    var makeAnnotations = d3.annotation()
+                      .type(d3.annotationLabel)
+                      .annotations(annotations)
+                      .accessors({
+                        x: function(d) { return d.x; },
+                        y: function(d) { return d.y; }
+                      });
+                    
+                    annotationGroup.call(makeAnnotations);
                 }
                 
                 // Call the function to initially build the visualization
