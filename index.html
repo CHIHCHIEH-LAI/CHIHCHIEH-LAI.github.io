@@ -268,8 +268,8 @@
                           wrap: 100
                         },
                         x: 0, // x-coordinate start of the line (leftmost position)
-                        y: y(93),
-                        data: { x: 0, y: y(93) },
+                        y: y(100),
+                        data: { x: 0, y: y(100) },
                         dx: width, // x-coordinate end of the line (rightmost position)
                         dy: 0 // Vertical alignment of the line
                       },
@@ -277,6 +277,19 @@
                         type: d3.annotationXYThreshold,
                         note: {
                           label: 'All-Stars',
+                          title: '',
+                          wrap: 100
+                        },
+                        x: 0,
+                        y: y(92),
+                        data: { x: 0, y: y(92) },
+                        dx: width,
+                        dy: 0
+                      },
+                      {
+                        type: d3.annotationXYThreshold,
+                        note: {
+                          label: 'Starters',
                           title: '',
                           wrap: 100
                         },
@@ -289,26 +302,13 @@
                       {
                         type: d3.annotationXYThreshold,
                         note: {
-                          label: 'Starters',
+                          label: 'Role Players',
                           title: '',
                           wrap: 100
                         },
                         x: 0,
                         y: y(76),
                         data: { x: 0, y: y(76) },
-                        dx: width,
-                        dy: 0
-                      },
-                      {
-                        type: d3.annotationXYThreshold,
-                        note: {
-                          label: 'Role Players',
-                          title: '',
-                          wrap: 100
-                        },
-                        x: 0,
-                        y: y(64),
-                        data: { x: 0, y: y(64) },
                         dx: width,
                         dy: 0
                       }
