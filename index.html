@@ -315,88 +315,34 @@
                         .style("stroke-dasharray", "3,3");  // Dotted line style
 
 
-                    // Add line annotations for specific rating values
-                    // var lineAnnotations = [
-                    //     {
-                    //         type: d3.annotationXYThreshold,
-                    //         note: {
-                    //             label: '',
-                    //             title: '',
-                    //             wrap: 100
-                    //         },
-                    //         x: 0, // x-coordinate start of the line (leftmost position)
-                    //         y: y(100),
-                    //         data: { x: 0, y: y(100) },
-                    //         dx: width, // x-coordinate end of the line (rightmost position)
-                    //         dy: 0 // Vertical alignment of the line
-                    //     },
-                    //     {
-                    //         type: d3.annotationXYThreshold,
-                    //         note: {
-                    //             label: '',
-                    //             title: '',
-                    //             wrap: 100
-                    //         },
-                    //         x: 0,
-                    //         y: y(92),
-                    //         data: { x: 0, y: y(92) },
-                    //         dx: width,
-                    //         dy: 0
-                    //     },
-                    //     {
-                    //         type: d3.annotationXYThreshold,
-                    //         note: {
-                    //             label: '',
-                    //             title: '',
-                    //             wrap: 100
-                    //         },
-                    //         x: 0,
-                    //         y: y(86),
-                    //         data: { x: 0, y: y(86) },
-                    //         dx: width,
-                    //         dy: 0
-                    //     },
-                    //     {
-                    //         type: d3.annotationXYThreshold,
-                    //         note: {
-                    //             label: '',
-                    //             title: '',
-                    //             wrap: 100
-                    //         },
-                    //         x: 0,
-                    //         y: y(76),
-                    //         data: { x: 0, y: y(76) },
-                    //         dx: width,
-                    //         dy: 0
-                    //     }
-                    // ];
+                    // Add the annotations to the group
+                    var makeAnnotations = d3.annotation()
+                        .type(d3.annotationLabel)
+                        .accessors({
+                            x: margin.left,
+                            y: function(d) { return y((d.ratingMin + d.ratingMax) / 2); }
+                        })
+                        .annotations(annotationData.map(function(d) {
+                            return {
+                                note: {
+                                    label: d.ratingRange,
+                                    title: '',
+                                    wrap: 100
+                                },
+                                x: margin.left,
+                                y: y(d.ratingMax),
+                                dx: 20,
+                                dy: 0
+                            };
+                        }));
                     
-                    // // Create a line annotation group
-                    // var lineAnnotationGroup = svg.append('g')
-                    //     .attr('class', 'line-annotation-group');
+                    annotationGroup.call(makeAnnotations);
                     
-                    // // Add the line annotations to the group
-                    // var makeLineAnnotations = d3.annotation()
-                    //     .type(d3.annotationXYThreshold)
-                    //     .accessors({
-                    //         x: function(d) { return d.x; },
-                    //         y: function(d) { return d.y; }
-                    //     })
-                    //     .annotations(lineAnnotations);
+                    // Style the annotation labels
+                    annotationGroup.selectAll('.annotation-note-label')
+                        .style('text-anchor', 'start') // Align labels to the right
+                        .style('font-size', '16px'); // Adjust font size as needed
                     
-                    // lineAnnotationGroup.call(makeLineAnnotations);
-                    
-                    // // Style the line annotations
-                    // lineAnnotationGroup.selectAll('.annotation-line path')
-                    //     .style('stroke-dasharray', '3,3') // Make the line dotted
-                    //     .style('opacity', 0.6) // Reduce opacity
-                    //     .style('stroke-width', 1.5); // Increase stroke width
-                    
-                    // // Style the line annotation labels
-                    // lineAnnotationGroup.selectAll('.annotation-note-label')
-                    //     .style('text-anchor', 'start') // Align labels to the right
-                    //     .style('font-size', '16px'); // Adjust font size as needed
-
                     // Add annotation
                     svg.append("text")
                         .attr("x", 10)
