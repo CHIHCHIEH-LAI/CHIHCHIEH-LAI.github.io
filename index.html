@@ -258,68 +258,72 @@
                             return "Name: " + d.full_name + "\nRating: " + d.rating + "\nSalary: $" + scaledSalary + "M"; 
                         });
 
-                    // Add annotations to differentiate tiers
-                    var annotations = [
+                    // Add line annotations for specific rating values
+                    var lineAnnotations = [
                       {
+                        type: d3.annotationXYThreshold,
                         note: {
-                          label: 'Superstars',
-                          title: '93-100',
-                          wrap: 100 // Wrap label text after 100 characters
-                        },
-                        x: width - 50, // x-coordinate of the annotation (adjusted based on your visualization)
-                        y: y(99), // y-coordinate of the annotation
-                        dx: -20, // x-offset of the label from the point
-                        dy: -10 // y-offset of the label from the point
-                      },
-                      {
-                        note: {
-                          label: 'All-Stars',
-                          title: '86-92',
+                          label: 'Superstars (93)',
+                          title: '',
                           wrap: 100
                         },
-                        x: width - 50,
-                        y: y(92),
-                        dx: -20,
+                        x: 0, // x-coordinate start of the line
+                        y: y(93), // y-coordinate start of the line
+                        data: { x: 0, y: y(93) }, // data point for the line
+                        dy: -10 // y-offset of the label from the line
+                      },
+                      {
+                        type: d3.annotationXYThreshold,
+                        note: {
+                          label: 'All-Stars (86)',
+                          title: '',
+                          wrap: 100
+                        },
+                        x: 0,
+                        y: y(86),
+                        data: { x: 0, y: y(86) },
                         dy: -10
                       },
                       {
+                        type: d3.annotationXYThreshold,
                         note: {
-                          label: 'Starters',
-                          title: '85-76',
+                          label: 'Starters (76)',
+                          title: '',
                           wrap: 100
                         },
-                        x: width - 50,
+                        x: 0,
                         y: y(76),
-                        dx: -20,
+                        data: { x: 0, y: y(76) },
                         dy: -10
                       },
                       {
+                        type: d3.annotationXYThreshold,
                         note: {
-                          label: 'Role Players',
-                          title: '75-65',
+                          label: 'Role Players (64)',
+                          title: '',
                           wrap: 100
                         },
-                        x: width - 50,
-                        y: y(60),
-                        dx: -20,
+                        x: 0,
+                        y: y(64),
+                        data: { x: 0, y: y(64) },
                         dy: -10
                       }
                     ];
                     
-                    // Create an annotation group
-                    var annotationGroup = svg.append('g')
-                      .attr('class', 'annotation-group');
+                    // Create a line annotation group
+                    var lineAnnotationGroup = svg.append('g')
+                      .attr('class', 'line-annotation-group');
                     
-                    // Add the annotations to the group
-                    var makeAnnotations = d3.annotation()
-                      .type(d3.annotationLabel)
-                      .annotations(annotations)
+                    // Add the line annotations to the group
+                    var makeLineAnnotations = d3.annotation()
+                      .type(d3.annotationXYThreshold)
                       .accessors({
                         x: function(d) { return d.x; },
                         y: function(d) { return d.y; }
-                      });
+                      })
+                      .annotations(lineAnnotations);
                     
-                    annotationGroup.call(makeAnnotations);
+                    lineAnnotationGroup.call(makeLineAnnotations);
                 }
                 
                 // Call the function to initially build the visualization
