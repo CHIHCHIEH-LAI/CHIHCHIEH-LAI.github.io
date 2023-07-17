@@ -295,8 +295,7 @@
                             note: {
                                 label: 'Superstars',
                                 title: '',
-                                wrap: 100,
-                                align: 'start'
+                                wrap: 100
                             },
                             x: 0, // x-coordinate start of the line (leftmost position)
                             y: y(100),
@@ -309,8 +308,7 @@
                             note: {
                                 label: 'All-Stars',
                                 title: '',
-                                wrap: 100,
-                                align: 'start'
+                                wrap: 100
                             },
                             x: 0,
                             y: y(92),
@@ -323,8 +321,7 @@
                             note: {
                                 label: 'Starters',
                                 title: '',
-                                wrap: 100,
-                                align: 'start'
+                                wrap: 100
                             },
                             x: 0,
                             y: y(86),
@@ -337,8 +334,7 @@
                             note: {
                                 label: 'Role Players',
                                 title: '',
-                                wrap: 100,
-                                align: 'start'
+                                wrap: 100
                             },
                             x: 0,
                             y: y(76),
@@ -378,7 +374,7 @@
                     svg.append("text")
                         .attr("x", 10)
                         .attr("y", 15)
-                        // .attr("text-anchor", "start")
+                        .attr("text-anchor", "middle")
                         .style("font-size", "16px")
                         .text("Hover over a bar for more details");
                 }
