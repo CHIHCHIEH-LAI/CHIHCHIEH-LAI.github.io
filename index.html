@@ -97,11 +97,11 @@
 
                     if (isSecondScene) {
                         // Show the back button
-                        d3.select(".back-button").style("display", "block");
+                        d3.select("#container").select("#back-button").style("display", "block");
                         buildScatterPlot();
                     } else {
                         // Hide the back button
-                        d3.select(".back-button").style("display", "none");
+                        d3.select("#container").select("#back-button").style("display", "none");
                         buildOverviewBarChart();
                     }
                 }
