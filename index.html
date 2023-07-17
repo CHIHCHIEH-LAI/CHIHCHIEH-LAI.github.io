@@ -225,7 +225,7 @@
 
                     // Define x and y scales
                     var x = d3.scaleLinear()
-                        .domain([0, 48000000])
+                        .domain([0, 53000000])
                         .range([0, width]);
                 
                     var y = d3.scaleLinear()
@@ -330,7 +330,7 @@
                     var makeAnnotations = d3.annotation()
                         .type(d3.annotationLabel)
                         .accessors({
-                            x: margin.left,
+                            x: width-40,
                             y: function(d) { return y((d.ratingMin + d.ratingMax) / 2); }
                         })
                         .annotations(annotationData.map(function(d) {
@@ -340,7 +340,7 @@
                                     title: '',
                                     wrap: 100
                                 },
-                                x: margin.left,
+                                x: width-40,
                                 y: y(d.ratingMax),
                                 dx: 20,
                                 dy: 0
