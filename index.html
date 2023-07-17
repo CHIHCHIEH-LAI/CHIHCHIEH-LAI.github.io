@@ -19,12 +19,21 @@
             flex-direction: column;
             align-items: center;
         }
+
+        #back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
     </style>
 </head>
 
 <body>
     <!-- Create a container for your visualization and dropdown menu -->
     <div id="container">
+        <div id="back-button">
+            <button onclick="goBack()">Back</button>
+        </div>
         <div id="visualization-container"></div>
         <div id="dropdown-container">
             <label for="country-select">Select Country:</label>
@@ -68,19 +77,25 @@
 
                 // Function to clear the chart
                 function clearChart() {
-                  d3.select("#container").select("#visualization-container").selectAll("svg").remove();
+                    d3.select("#container").select("#visualization-container").selectAll("svg").remove();
+                }
+
+                // Function to go back to the first scene
+                function goBack() {
+                    clearChart();
+                    updateVisualization();
                 }
 
                 // Function to update the visualization based on the selected country
                 function updateVisualization() {
                     // Clear the existing chart
                     clearChart();
-                    
+
                     // Filter the scatter plot data based on the selected country and position
                     var filteredBarChartData = barChartData.filter(function (d) {
                         return d.country === selectedCountry;
                     });
-                    
+
                     // Call the functions to build/update the initial scenes
                     buildOverviewBarChart(filteredBarChartData);
                     // buildOverviewBarChart(barChartData);
@@ -130,15 +145,15 @@
 
                             // Clear the existing chart
                             clearChart();
-                    
+
                             // Get the selected position from the clicked bar
                             var selectedPosition = d.srcElement.__data__.position;
-                    
+
                             // Filter the scatter plot data based on the selected bar
                             var filteredScatterPlotData = scatterPlotData.filter(function (scatterData) {
                                 return scatterData.country === selectedCountry && scatterData.position === selectedPosition;
                             });
-                    
+
                             // Call the function to build the scatter plot scene
                             buildScatterPlot(filteredScatterPlotData);
                         });
@@ -184,7 +199,6 @@
 
                 // Build the second scene - Scatter plot
                 function buildScatterPlot(data) {
-                    
                     // Define the dimensions and margins for the plot
                     var width = 600;
                     var height = 300;
@@ -202,7 +216,7 @@
                     var x = d3.scaleLinear()
                         .domain([0, 48000000])
                         .range([0, width]);
-                
+
                     var y = d3.scaleLinear()
                         .domain([65, 100])
                         .range([height, 0]);
@@ -224,7 +238,7 @@
                     svg.append("g")
                         .attr("transform", "translate(0," + height + ")")
                         .call(xAxis);
-                
+
                     svg.append("g")
                         .call(d3.axisLeft(y));
 
@@ -234,7 +248,7 @@
                         .attr("y", height + margin.bottom - 10)
                         .attr("text-anchor", "middle")
                         .text("Salary ($)");
-                
+
                     svg.append("text")
                         .attr("x", -margin.left + 20)
                         .attr("y", height / 2)
@@ -260,91 +274,90 @@
 
                     // Add line annotations for specific rating values
                     var lineAnnotations = [
-                      {
-                        type: d3.annotationXYThreshold,
-                        note: {
-                          label: '',
-                          title: 'Superstars',
-                          wrap: 100
+                        {
+                            type: d3.annotationXYThreshold,
+                            note: {
+                                label: '',
+                                title: 'Superstars',
+                                wrap: 100
+                            },
+                            x: 0, // x-coordinate start of the line (leftmost position)
+                            y: y(100),
+                            data: { x: 0, y: y(100) },
+                            dx: width, // x-coordinate end of the line (rightmost position)
+                            dy: 0 // Vertical alignment of the line
                         },
-                        x: 0, // x-coordinate start of the line (leftmost position)
-                        y: y(100),
-                        data: { x: 0, y: y(100) },
-                        dx: width, // x-coordinate end of the line (rightmost position)
-                        dy: 0 // Vertical alignment of the line
-                      },
-                      {
-                        type: d3.annotationXYThreshold,
-                        note: {
-                          label: 'All-Stars',
-                          title: '',
-                          wrap: 100
+                        {
+                            type: d3.annotationXYThreshold,
+                            note: {
+                                label: 'All-Stars',
+                                title: '',
+                                wrap: 100
+                            },
+                            x: 0,
+                            y: y(92),
+                            data: { x: 0, y: y(92) },
+                            dx: width,
+                            dy: 0
                         },
-                        x: 0,
-                        y: y(92),
-                        data: { x: 0, y: y(92) },
-                        dx: width,
-                        dy: 0
-                      },
-                      {
-                        type: d3.annotationXYThreshold,
-                        note: {
-                          label: 'Starters',
-                          title: '',
-                          wrap: 100
+                        {
+                            type: d3.annotationXYThreshold,
+                            note: {
+                                label: 'Starters',
+                                title: '',
+                                wrap: 100
+                            },
+                            x: 0,
+                            y: y(86),
+                            data: { x: 0, y: y(86) },
+                            dx: width,
+                            dy: 0
                         },
-                        x: 0,
-                        y: y(86),
-                        data: { x: 0, y: y(86) },
-                        dx: width,
-                        dy: 0
-                      },
-                      {
-                        type: d3.annotationXYThreshold,
-                        note: {
-                          label: 'Role Players',
-                          title: '',
-                          wrap: 100
-                        },
-                        x: 0,
-                        y: y(76),
-                        data: { x: 0, y: y(76) },
-                        dx: width,
-                        dy: 0
-                      }
+                        {
+                            type: d3.annotationXYThreshold,
+                            note: {
+                                label: 'Role Players',
+                                title: '',
+                                wrap: 100
+                            },
+                            x: 0,
+                            y: y(76),
+                            data: { x: 0, y: y(76) },
+                            dx: width,
+                            dy: 0
+                        }
                     ];
-                    
+
                     // Create a line annotation group
                     var lineAnnotationGroup = svg.append('g')
-                      .attr('class', 'line-annotation-group');
-                    
+                        .attr('class', 'line-annotation-group');
+
                     // Add the line annotations to the group
                     var makeLineAnnotations = d3.annotation()
-                      .type(d3.annotationXYThreshold)
-                      .accessors({
-                        x: function(d) { return d.x; },
-                        y: function(d) { return d.y; }
-                      })
-                      .annotations(lineAnnotations);
-                    
+                        .type(d3.annotationXYThreshold)
+                        .accessors({
+                            x: function(d) { return d.x; },
+                            y: function(d) { return d.y; }
+                        })
+                        .annotations(lineAnnotations);
+
                     lineAnnotationGroup.call(makeLineAnnotations);
-                    
+
                     // Style the line annotations
                     lineAnnotationGroup.selectAll('.annotation-line path')
-                      .style('stroke-dasharray', '3,3') // Make the line dotted
-                      .style('opacity', 0.6) // Reduce opacity
-                      .style('stroke-width', 1.5) // Increase stroke width
-                    
+                        .style('stroke-dasharray', '3,3') // Make the line dotted
+                        .style('opacity', 0.6) // Reduce opacity
+                        .style('stroke-width', 1.5); // Increase stroke width
+
                     // Style the line annotation labels
                     lineAnnotationGroup.selectAll('.annotation-note-label')
-                      .style('text-anchor', 'start') // Align labels to the right
-                      .style('font-size', '16px') // Adjust font size as needed
-
+                        .style('text-anchor', 'start') // Align labels to the right
+                        .style('font-size', '16px'); // Adjust font size as needed
                 }
-                
+
                 // Call the function to initially build the visualization
                 updateVisualization();
-                
+
             }).catch(function (error) {
                 console.log(error);
             });
