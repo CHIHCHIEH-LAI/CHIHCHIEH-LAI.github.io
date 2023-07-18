@@ -206,6 +206,17 @@
                         .style("font-size", "16px")
                         .text("Hover over or Click any bar for more details");
 
+                    // Define the scene description
+                    var sceneDescription = "The chart on the web page presents an overview of NBA player salaries by position, showcasing the average salary for each role. It provides valuable insights into salary distribution and reveals how teams allocate resources based on positions and countries. By exploring the chart, users can gain a comprehensive understanding of the financial landscape of the NBA and the significance attributed to each position.";
+
+                    // Add scene description
+                    var sceneDescriptionBlock = d3.select("#container")
+                        .append("div")
+                        .attr("class", "scene-description");
+                
+                    // Update the scene description value
+                    sceneDescriptionBlock.text(sceneDescription);
+                    
                 }
 
                 // Build the second scene - Scatter plot
@@ -361,6 +372,17 @@
                         .attr("text-anchor", "start")
                         .style("font-size", "16px")
                         .text("Hover over a point for more details");
+
+                    // Define the scene description
+                    var sceneDescription = "The second scene analyzes NBA player salaries and ratings for the selected position. It features a scatterplot showing the relationship between salary and 2K rating, representing signed contracts. Users can explore the correlation between performance and financial investment, gaining insights into the NBA free agent market.";
+                
+                    // Add scene description
+                    var sceneDescriptionBlock = d3.select("#container")
+                        .append("div")
+                        .attr("class", "scene-description");
+                
+                    // Update the scene description value
+                    sceneDescriptionBlock.text(sceneDescription);
                 }
 
                 // Add a click event listener to the back button
