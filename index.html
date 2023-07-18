@@ -88,6 +88,12 @@
                     function clearChart() {
                         d3.select("#container").select("#visualization-container").selectAll("svg").remove();
                     }
+
+                    function clearDescription() {
+                        d3.select("#description-container")
+                            .selectAll("p")
+                            .remove();
+                    }
     
                     // Function to go back to the first scene
                     function goBack() {
@@ -97,8 +103,9 @@
     
                     // Function to update the visualization based on the selected country and scene
                     function updateVisualization() {
-                        // Clear the existing chart
+                        // Clear the existing chart and description
                         clearChart();
+                        clearDescription();
     
                         if (isSecondScene) {
                             backButton.style.display = "block"; // Show the back button
